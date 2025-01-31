@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HealthLife Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    /* Encabezado */
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    header p {
+      margin-top: 5px;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    /* Menú lateral */
+    .sidenav {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #2c3e50;
+      overflow-x: hidden;
+      padding-top: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidenav a {
+      padding: 12px 16px;
+      text-decoration: none;
+      font-size: 16px;
+      color: white;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidenav a:hover {
+      background-color: #34495e;
+    }
+
+    .sidenav i {
+      margin-right: 10px;
+      color: white;
+    }
+
+    /* Contenido principal */
+    .main {
+      margin-left: 200px;
+      padding: 20px;
+    }
+
+    /* Secciones */
+    .section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .section h2 {
+      color: #2c3e50;
+      margin-top: 0;
+      font-weight: 700;
+    }
+
+    .section p {
+      line-height: 1.5;
+      color: #555;
+    }
+
+    /* Cuadrícula de elementos */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    }
+
+    .grid-item {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .grid-item h3 {
+      color: #2c3e50;
+      margin-top: 0;
+      font-weight: 700;
+    }
+
+    .grid-item p {
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .grid-item i {
+      font-size: 32px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    /* Cronómetro circular */
+    .circular-timer {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .circular-timer .timer-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #f5f5f5;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .circular-timer .timer-circle .time {
+      font-size: 48px;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    /* Botones */
+    .section button {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .section button:hover {
+      background-color: #34495e;
+    }
+
+    /* Funcionalidad del cronómetro */
+    .section.timer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section.timer-section button {
+      margin-top: 20px;
+    }
+
+    .section.timer-section .time {
+      font-size: 48px;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    /* Notificaciones de Comidas */
+    .section.meal-notifications {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section.meal-notifications .notification {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section.meal-notifications .notification i {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-right: 10px;
+    }
+
+    .section.meal-notifications .notification p {
+      margin: 0;
+    }
+
+    /* Mensajes Motivacionales */
+    .section.motivational-messages {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section.motivational-messages .message {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      width: 80%;
+    }
+
+    .section.motivational-messages .message p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HealthLife Tracker</h1>
+    <p>Tu compañero de hábitos saludables</p>
+  </header>
+
+  <div class="sidenav">
+    <a href="#"><i class="fas fa-lightbulb"></i> Consejos</a>
+    <a href="#"><i class="fas fa-utensils"></i> Recetas</a>
+    <a href="#"><i class="fas fa-dumbbell"></i> Ejercicios</a>
+    <a href="#"><i class="fas fa-shopping-cart"></i> Productos</a>
+    <a href="#"><i class="fas fa-envelope"></i> Contáctanos</a>
+  </div>
+
+  <div class="main">
+    <div class="section">
+      <h2><i class="fas fa-clock"></i> Horarios de Comidas</h2>
+      <p>Desayuno: 05:03</p>
+      <p>Almuerzo: 08:03</p>
+      <p>Cena: 11:03</p>
+    </div>
+
+    <div class="section timer-section">
+      <h2><i class="fas fa-stopwatch"></i> Ayuno Intermitente</h2>
+      <div class="circular-timer">
+        <div class="timer-circle">
+          <div class="time">00:00:00</div>
+        </div>
+      </div>
+      <button id="start-timer"><i class="fas fa-play"></i> Iniciar</button>
+      <button id="stop-timer"><i class="fas fa-stop"></i> Detener</button>
+      <p>Meta diaria: 16 horas - Ventana de alimentación: 8 horas</p>
+    </div>
+
+    <div class="section meal-notifications">
+      <h2><i class="fas fa-bell"></i> Notificaciones de Comidas</h2>
+      <div class="notification">
+        <i class="fas fa-utensils"></i>
+        <p>Hora de Desayuno: 05:03</p>
+      </div>
+      <div class="notification">
+        <i class="fas fa-utensils"></i>
+        <p>Hora de Almuerzo: 08:03</p>
+      </div>
+      <div class="notification">
+        <i class="fas fa-utensils"></i>
+        <p>Hora de Cena: 11:03</p>
+      </div>
+    </div>
+
+    <div class="section motivational-messages">
+      <h2><i class="fas fa-lightbulb"></i> Mensajes Motivacionales</h2>
+      <div class="message">
+        <p style="color: white;">¡Sigue así! Estás haciendo un gran trabajo manteniendo tu ayuno.</p>
+      </div>
+      <div class="message">
+        <p style="color: white;">Recuerda que cada hora que pasa es un paso más hacia tus objetivos de salud.</p>
+      </div>
+      <div class="message">
+        <p style="color: white;">¡Eres increíble! Mantén esa determinación y disciplina.</p>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-item">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Consejos</h3>
+        <p>Aquí encontrarás consejos prácticos para mantener un estilo de vida saludable.</p>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-utensils"></i>
+        <h3>Recetas</h3>
+        <p>Descubre recetas saludables y fáciles de preparar.</p>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-dumbbell"></i>
+        <h3>Ejercicios</h3>
+        <p>Encuentra rutinas de ejercicios para todos los niveles.</p>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Productos</h3>
+        <p>Explora una selección de productos saludables.</p>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-envelope"></i>
+        <h3>Contáctanos</h3>
+        <p>Ponte en contacto con nosotros para más información.</p>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-chart-line"></i>
+        <h3>Progreso</h3>
+        <p>Revisa tus avances y estadísticas de salud.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const startTimerButton = document.getElementById('start-timer');
+    const stopTimerButton = document.getElementById('stop-timer');
+    const timerDisplay = document.querySelector('.circular-timer .time');
+
+    let timerInterval;
+    let elapsedSeconds = 0;
+    let motivationalMessages = [
+      "¡Sigue así! Estás haciendo un gran trabajo manteniendo tu ayuno.",
+      "Recuerda que cada hora que pasa es un paso más hacia tus objetivos de salud.",
+      "¡Eres increíble! Mantén esa determinación y disciplina."
+    ];
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        elapsedSeconds++;
+        updateTimerDisplay();
+        showMotivationalMessage();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      elapsedSeconds = 0;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      const hours = Math.floor(elapsedSeconds / 3600);
+      const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+      const seconds = elapsedSeconds % 60;
+      timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function showMotivationalMessage() {
+      if (elapsedSeconds % 3600 === 0) {
+        const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message');
+        messageElement.innerHTML = `<p style="color: white;">${motivationalMessages[randomIndex]}</p>`;
+        document.querySelector('.motivational-messages').appendChild(messageElement);
+        setTimeout(() => {
+          messageElement.remove();
+        }, 10000);
+      }
+    }
+
+    startTimerButton.addEventListener('click', startTimer);
+    stopTimerButton.addEventListener('click', stopTimer);
+  </script>
+</body>
+</html>
